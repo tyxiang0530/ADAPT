@@ -45,6 +45,17 @@ It should also be noted that the last name matching method we use can lead to so
 ### Wiki Operations
  
 In the **WikiOperations** phase, we look through each entry returned following **WikiOperations**. If the entry has a corresponding location in the DB, we first check if the database entry correctly corresponds to the tagged entry by checking if the first name and last name of the individual matches our database entry. If it does, we add a dictionary containing all of the info corresponding to the name from the database to a list. If the entries first and last name does not match or was not found by the DB and was tagged by NER, we query Wikipedia through the Wikimedia API and return a dictionary that is also added to the list. This dictionary entry is then added to our database so that it can be matched for any future processing. After all entries have been processed, we write the list of dictionaries to a csv. This is the final output of the tool.
+
+## Examples
+
+### Index
+
+'Helmholtz free energy' -> (word tokenize) ['Helmholtz', 'free', 'energy'] -> (Perform NER) -> (remove non-upper case) ['Helmholtz'] -> (database match, return database dictionary) -> {'Name': 'Helmholtz', 'Wiki Name':	'Hermann_von_Helmholtz', 'Human':	'human (Q5)', 'Sex':	'male (Q6581097)', 'Birth Location':	'Potsdam (Q1711)', 'Birth Country':	 Germany, 'Race':	'white', 'MatchName':	'HELMHOLTZ', 'FullName':	'Hermann Helmholtz', 'Wiki Race': '', 'Matching Names':	TRUE] -> (write this entry to output csv)
+
+### Textbook
+
+'Helmholtz free energy is a very useful thermodynamic potential. It can have multiple uses.' -> (sentence tokenize) ['Helmholtz free energy is a very useful thermodynamic potential', 'It can have multiple uses'] -> (focus in on first element, word tokenize) ['Helmholtz', 'free', 'energy', 'is', 'a', 'very', 'useful', 'thermodynamic', 'potential'] -> (perform NER) -> (remove non-upper case) ['Helmholtz'] -> (database match, return database dictionary) -> {'Name': 'Helmholtz', 'Wiki Name':	'Hermann_von_Helmholtz', 'Human':	'human (Q5)', 'Sex':	'male (Q6581097)', 'Birth Location':	'Potsdam (Q1711)', 'Birth Country':	 Germany, 'Race':	'white', 'MatchName':	'HELMHOLTZ', 'FullName':	'Hermann Helmholtz', 'Wiki Race': '', 'Matching Names':	TRUE] -> (write this entry to output csv)
+
  
 ## Sanitization
  
