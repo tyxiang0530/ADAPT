@@ -7,7 +7,7 @@ Our intention is to analyze science textbooks used at Pomona and around the coun
 
 ## How the Code Works
 
-The tool consists of two classes: **NameGrab** and **WikiOperations**, as well as a third class MainName that simply runs the methods from the other two classes.
+The tool consists of two classes: **NameGrab** and **WikiOperations**, as well as a third class **MainName** that simply runs the methods from the other two classes.
 
 ### NameGrab
 
