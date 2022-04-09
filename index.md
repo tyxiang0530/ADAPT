@@ -22,12 +22,12 @@ Since each entry index will typically only contain one name, we check each word 
 
  The physicist database is an extensive list of around 3000 unique dictionaries containing the following information: The name of the person, the name returned when wikipedia is queried, whether the person is a human, the gender of the person, the birth city of the person, the birth country of the person, the race of the person, a 'MatchName' variable that is used for matching in the **NameGrab** phase, a 'FullName' variable that is used for checking in the **WikiOperations** phase, the race of the person according to Wikipedia, and a 'MatchingNames' variable that is leftover for sanity checking purposes. We will discuss how the DB is constructed later.
 
- The variable that is used for name matching is the 'MatchName' variable. It contains only the last name of the physicist in the entry. We match last names instead of full names as we are iterating over tokens. This conveniently is also helpful to minimize the effect of OCR error, abbreviations, and odd formatting, as the simplicity reduces the chance of words being OCRed wrong.
+The 'MatchName' variable is used for name matching. It contains only the last name of the physicist in the entry. We match last names instead of full names as we are iterating over tokens. This conveniently is also helpful to minimize the effect of OCR error, abbreviations, and odd formatting, as the simplicity reduces the chance of words being OCRed wrong.
  
 If a token is a name, we add it to a running full name variable. After exhausting all the tokens in the array, we output the full name. Let us take a look at the example ['Erwin', 'Schrodinger']. We will match 'Erwin' and add it to FullName. Then we will match 'Schrodinger', and add it to the end of FullName. Now that the array is exhausted, we output 'Erwin Schrodinger' as the full name. This is the basic matching idea.
  
 To reduce computation time, everytime we successfully match a token to the name in the database we also save the position we found the token in the database. Thus, the full output of the **NameGrab** class is the full name as well as its corresponding DB index position. If the entry is not in the DB, but it is tagged as “Person” by the NER, we only return the queried entry without an accompanying index.
- 
+
 There are multiple cases that can help simplify our job and increase accuracy. We will cover a few of the cases.
  
 ##### Case 1: An initial is present
